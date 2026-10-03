@@ -60,12 +60,9 @@ namespace EersteWebNetApplicatie.Controllers
 
         [HttpPost]
 
+        public ActionResult<Project> createnewProject(ProjectRequestDTO project)
 
-
-
-            public List<Project> createnewProject(String titel, String beschrijving, String Categorie, String Githuburl, DateTime Datum)
-           
-            {
+        {
             Random random = new Random();
 
             int uniekgetal;
@@ -77,21 +74,54 @@ namespace EersteWebNetApplicatie.Controllers
             }
             while (_projects.Any(p => p.ID == uniekgetal));
 
-            int id = uniekgetal; 
+            int id = uniekgetal;
 
 
+            Project newproject = new Project(
+                project.titel,
+                id,
+                project.beschrijving,
+                project.Categorie,
+                project.GitHubUrl,
+                project.Datum
+            );
 
-
-            Project newproject = new Project(titel,id,beschrijving,Categorie,Githuburl,Datum);
 
             _projects.Add(newproject);
 
 
-            return _projects;
+            return CreatedAtAction(nameof(getProjectByID), new { id = id } , newproject);
 
 
         }
 
+
+        [HttpPut("{id}")]
+
+        public ActionResult<Project> updateProjectbyID(int id, ProjectRequestDTO project) {
+
+            Project? _project = _projects.FirstOrDefault(p => p.ID == id);
+
+        
+
+
+
+            if (_project == null) { return NotFound(); } else
+            {
+                _project.titel = project.titel;
+                _project.beschrijving = project.beschrijving;
+                _project.Categorie = project.Categorie;
+                _project.GitHubUrl = project.GitHubUrl;
+                _project.Datum = project.Datum;
+
+                return _project;
+            
+            }
+        
+        
+        
+        
+        }
 
 
 
