@@ -5,17 +5,21 @@ namespace EersteWebNetApplicatie.Controllers
 {
     [ApiController]
     [Route("[controller]")]
+
     public class ProjectsController : ControllerBase
     {
 
+      readonly ProjectService service;
+
+        public ProjectsController(ProjectService service) {
+
+            this.service = service;
         
-        public static List<Project> _projects = new List<Project> {
+        
+        }
 
-            new Project("Project 1", 324, "Beschrijving 1", "Categorie 1", "https://github.com/project1", new DateTime(2026, 10, 1)),
+        
 
-                new Project("Project 2", 112, "Beschrijving 1", "Categorie 1", "https://github.com/project1", new DateTime(2026, 10, 1))
-
-            };
 
 
         [HttpGet]
@@ -23,7 +27,7 @@ namespace EersteWebNetApplicatie.Controllers
 
 
 
-            return _projects;
+            return service.getProjecten();
 
 
         }
@@ -34,8 +38,8 @@ namespace EersteWebNetApplicatie.Controllers
         [HttpGet("{id}")]
         public ActionResult<Project> getProjectByID(int id) {
 
-        
-           Project? project = _projects.FirstOrDefault(p => p.ID == id);
+
+            Project? project = service.getProjectByID(id);
             if (project == null) {
                 return NotFound();
             }
@@ -49,9 +53,11 @@ namespace EersteWebNetApplicatie.Controllers
         [HttpDelete("{id}")]
         public ActionResult<List<Project>> deleteProjectByID(int id) {
 
-            Project? _project = _projects.FirstOrDefault(project => id == project.ID);
 
-            if (_projects.Remove(_project)) { return _projects; } else { return NotFound();
+            List<Project>? _projects = service.deleteProjectByID(id);
+
+            if (_projects == null) { return NotFound();  } else {
+                return _projects;
 
             } }
 
@@ -63,34 +69,10 @@ namespace EersteWebNetApplicatie.Controllers
         public ActionResult<Project> createnewProject(ProjectRequestDTO project)
 
         {
-            Random random = new Random();
 
-            int uniekgetal;
+            Project? newproject = service.createnewProject(project);
 
-
-            do
-            {
-                uniekgetal = random.Next(0, 1000);
-            }
-            while (_projects.Any(p => p.ID == uniekgetal));
-
-            int id = uniekgetal;
-
-
-            Project newproject = new Project(
-                project.titel,
-                id,
-                project.beschrijving,
-                project.Categorie,
-                project.GitHubUrl,
-                project.Datum
-            );
-
-
-            _projects.Add(newproject);
-
-
-            return CreatedAtAction(nameof(getProjectByID), new { id = id } , newproject);
+            return CreatedAtAction(nameof(getProjectByID), new { id = newproject.ID } , newproject);
 
 
         }
@@ -100,30 +82,17 @@ namespace EersteWebNetApplicatie.Controllers
 
         public ActionResult<Project> updateProjectbyID(int id, ProjectRequestDTO project) {
 
-            Project? _project = _projects.FirstOrDefault(p => p.ID == id);
-
-        
+            Project? _project = service.updateProjectbyID(id, project);
 
 
 
             if (_project == null) { return NotFound(); } else
             {
-                _project.titel = project.titel;
-                _project.beschrijving = project.beschrijving;
-                _project.Categorie = project.Categorie;
-                _project.GitHubUrl = project.GitHubUrl;
-                _project.Datum = project.Datum;
-
                 return _project;
-            
+
             }
-        
-        
-        
-        
+
         }
-
-
 
 
 
