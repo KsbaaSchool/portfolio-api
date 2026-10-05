@@ -9,7 +9,7 @@ builder.Services.AddControllers();
 builder.Services.AddOpenApi();
 builder.Services.AddSwaggerGen();
 builder.Services.AddScoped<ProjectService>();
-
+builder.Services.AddScoped<BlogpostService>();
 
 var app = builder.Build();
 

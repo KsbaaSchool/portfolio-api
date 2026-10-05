@@ -54,7 +54,7 @@ namespace EersteWebNetApplicatie.Controllers
         public ActionResult<List<Project>> deleteProjectByID(int id) {
 
 
-            List<Project>? _projects = service.deleteProjectByID(id);
+            List<Project>?   _projects = service.deleteProjectByID(id);
 
             if (_projects == null) { return NotFound();  } else {
                 return _projects;

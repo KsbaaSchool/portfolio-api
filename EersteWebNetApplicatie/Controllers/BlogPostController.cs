@@ -9,16 +9,19 @@ namespace EersteWebNetApplicatie.Controllers
     public class BlogPostController : ControllerBase
     {
 
-        public static List<Blogpost> _blogposts = new List<Blogpost> {
-                new Blogpost (1, "Titel 1", "Inhoud 1", new DateTime(2026, 10, 1)),
-                new Blogpost (2, "Titel 2", "Inhoud 2", new DateTime(2026, 10, 1))};
-        
+        readonly BlogpostService service;
+
+        public BlogPostController(BlogpostService service) {
+            this.service = service; 
+        }
+
 
 
         [HttpGet]
         public List<Blogpost> getBlogposts()
         {
 
+            List<Blogpost> _blogposts = service.getBlogposts();
 
             return _blogposts;
 
@@ -29,7 +32,7 @@ namespace EersteWebNetApplicatie.Controllers
 
         public ActionResult<Blogpost> getBlogpostByID(int id) {
 
-            Blogpost? _blogpost = _blogposts.FirstOrDefault(blogpost => id == blogpost.ID);
+            Blogpost? _blogpost = service.getBlogpostByID(id);
 
             if (_blogpost == null) { return NotFound(); }
             else { return _blogpost; }
@@ -42,9 +45,10 @@ namespace EersteWebNetApplicatie.Controllers
         [HttpDelete("{id}")]
         public ActionResult<List<Blogpost>> deleteById(int id) {
 
-            Blogpost? _blogpost = _blogposts.FirstOrDefault(b => b.ID == id);
+            List<Blogpost>? _blogposts = service.deleteById(id);
 
-            if (_blogposts.Remove(_blogpost)) { return _blogposts; } else { return NotFound(); }
+
+            if (_blogposts == null) { return NotFound(); } else { return _blogposts;  }
 
         }
 
@@ -54,19 +58,14 @@ namespace EersteWebNetApplicatie.Controllers
         public ActionResult<Blogpost> createnewBlogpost(BlogPostRequestDTO blogpost) {
 
 
-            Random random = new Random();
-            int uniekgetal;
-
-            do { uniekgetal = random.Next(0, 1001); }
-            while (_blogposts.Any(bp => bp.ID == uniekgetal));
 
 
-            Blogpost newBlogpost = new Blogpost(uniekgetal, blogpost.titel, blogpost.inhoud, blogpost.publicatieDatum);
+            Blogpost? newBlogpost = service.createnewBlogpost(blogpost);
 
 
-            _blogposts.Add(newBlogpost);
+          
 
-            return CreatedAtAction(nameof(getBlogpostByID), new {id = uniekgetal } , newBlogpost);
+            return CreatedAtAction(nameof(getBlogpostByID), new {id = newBlogpost.ID } , newBlogpost);
         
         }
 
@@ -75,16 +74,13 @@ namespace EersteWebNetApplicatie.Controllers
 
         public ActionResult<Blogpost> updateBlogpost(int id, BlogPostRequestDTO blogpost) {
 
-            Blogpost? _blogpost = _blogposts.FirstOrDefault(bg => bg.ID == id);
+
+            Blogpost? _blogpost = service.updateBlogpost(id, blogpost);
 
 
 
 
             if (_blogpost == null) { return NotFound();  } else { 
-
-                _blogpost.titel = blogpost.titel;
-                _blogpost.inhoud = blogpost.inhoud;
-                _blogpost.publicatieDatum = blogpost.publicatieDatum;
 
 
                 return _blogpost;
