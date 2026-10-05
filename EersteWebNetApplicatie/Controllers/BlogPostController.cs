@@ -64,6 +64,8 @@ namespace EersteWebNetApplicatie.Controllers
             Blogpost newBlogpost = new Blogpost(uniekgetal, blogpost.titel, blogpost.inhoud, blogpost.publicatieDatum);
 
 
+            _blogposts.Add(newBlogpost);
+
             return CreatedAtAction(nameof(getBlogpostByID), new {id = uniekgetal } , newBlogpost);
         
         }
