@@ -1,4 +1,5 @@
 using EersteWebNetApplicatie;
+using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -10,6 +11,8 @@ builder.Services.AddOpenApi();
 builder.Services.AddSwaggerGen();
 builder.Services.AddScoped<ProjectService>();
 builder.Services.AddScoped<BlogpostService>();
+builder.Services.AddDbContext<PortfolioDbContext>(options =>
+    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
 var app = builder.Build();
 

@@ -4,7 +4,7 @@
     {
 
         public String titel { get; set; }
-        public int ID { get;  }
+        public int ID { get; set; }
 
         public String beschrijving { get; set; }
 

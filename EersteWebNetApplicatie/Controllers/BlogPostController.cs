@@ -60,7 +60,8 @@ namespace EersteWebNetApplicatie.Controllers
 
 
 
-            Blogpost? newBlogpost = service.createnewBlogpost(blogpost);
+            Blogpost newBlogpost = service.createnewBlogpost(blogpost);
+
 
 
           

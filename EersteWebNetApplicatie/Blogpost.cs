@@ -3,7 +3,7 @@
     public class Blogpost
     {
 
-       public int ID { get; }
+       public int ID { get; set; }
 
         public String titel { get; set; }
 
@@ -13,9 +13,9 @@
 
 
 
-        public Blogpost(int id, String titel, String inhoud, DateTime publicatieDatum)
+        public Blogpost(int ID, String titel, String inhoud, DateTime publicatieDatum)
         {
-            this.ID = id;
+            this.ID = ID;
             this.titel = titel;
             this.inhoud = inhoud;
             this.publicatieDatum = publicatieDatum;

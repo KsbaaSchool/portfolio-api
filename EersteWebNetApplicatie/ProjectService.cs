@@ -53,7 +53,7 @@ namespace EersteWebNetApplicatie
 
 
 
-        public Project? createnewProject(ProjectRequestDTO project)
+        public Project createnewProject(ProjectRequestDTO project)
 
         {
             Random random = new Random();

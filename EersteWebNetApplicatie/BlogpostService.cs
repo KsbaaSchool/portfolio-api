@@ -37,14 +37,14 @@ namespace EersteWebNetApplicatie
         public List<Blogpost>? deleteById(int id)
         {
 
-            Blogpost? _blogpost = _blogposts.FirstOrDefault(b => b.ID == id);
+            Blogpost _blogpost = _blogposts.FirstOrDefault(b => b.ID == id);
 
             if (_blogposts.Remove(_blogpost)) { return _blogposts; } else { return null; }
 
         }
 
 
-        public Blogpost? createnewBlogpost(BlogPostRequestDTO blogpost)
+        public Blogpost createnewBlogpost(BlogPostRequestDTO blogpost)
         {
 
 

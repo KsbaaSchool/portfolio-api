@@ -70,7 +70,7 @@ namespace EersteWebNetApplicatie.Controllers
 
         {
 
-            Project? newproject = service.createnewProject(project);
+            Project newproject = service.createnewProject(project);
 
             return CreatedAtAction(nameof(getProjectByID), new { id = newproject.ID } , newproject);
 
