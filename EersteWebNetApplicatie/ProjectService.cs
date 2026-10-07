@@ -1,25 +1,30 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace EersteWebNetApplicatie
 {
     public class ProjectService
     {
-        private static List<Project> _projects = new List<Project> {
+        /*  private static List<Project> _projects = new List<Project> {
 
-            new Project("Project 1", 324, "Beschrijving 1", "Categorie 1", "https://github.com/project1", new DateTime(2026, 10, 1)),
+              new Project("Project 1", 324, "Beschrijving 1", "Categorie 1", "https://github.com/project1", new DateTime(2026, 10, 1)),
 
-                new Project("Project 2", 112, "Beschrijving 1", "Categorie 1", "https://github.com/project1", new DateTime(2026, 10, 1))
+                  new Project("Project 2", 112, "Beschrijving 1", "Categorie 1", "https://github.com/project1", new DateTime(2026, 10, 1))
 
-            };
+              }; */
+
+
+        readonly PortfolioDbContext context;
+        public ProjectService(PortfolioDbContext context) { this.context = context; }
 
 
 
-        public List<Project> getProjecten()
+        public async Task<List<Project>> getProjecten()
         {
 
 
 
-            return _projects;
+                return await context.Projects.ToListAsync();
 
 
         }
@@ -27,24 +32,30 @@ namespace EersteWebNetApplicatie
 
 
 
-            public Project? getProjectByID(int id)
+            public async Task<Project?> getProjectByID(int id)
             {
 
 
-                Project? project = _projects.FirstOrDefault(p => p.ID == id);
+                
 
-            return project;
+            return await context.Projects.FirstOrDefaultAsync(p => p.ID == id); 
+
         }
 
-        public List<Project>? deleteProjectByID(int id)
+        public async Task<List<Project>?> deleteProjectByID(int id)
         {
 
-            Project? _project = _projects.FirstOrDefault(project => id == project.ID);
+            Project? _project = await context.Projects.FirstOrDefaultAsync(project => id == project.ID);
 
-            if (_projects.Remove(_project)) { return _projects; }
+            if (_project == null) { return null; }
             else
             {
-                return null;
+                context.Projects.Remove(_project);
+
+                await context.SaveChangesAsync();
+
+                return await context.Projects.ToListAsync();
+
 
             }
         }
@@ -53,37 +64,24 @@ namespace EersteWebNetApplicatie
 
 
 
-        public Project createnewProject(ProjectRequestDTO project)
+        public async Task<Project> createnewProject(ProjectRequestDTO project)
 
         {
-            Random random = new Random();
-
-            int uniekgetal;
 
 
-            do
-            {
-                uniekgetal = random.Next(0, 1000);
-            }
-            while (_projects.Any(p => p.ID == uniekgetal));
+            Project _project = new Project(project.titel, 0, project.beschrijving,
+                                            project.Categorie, project.GitHubUrl, project.Datum);
 
-            int id = uniekgetal;
+            context.Projects.Add(_project);
+           await context.SaveChangesAsync();
 
 
-            Project newproject = new Project(
-                project.titel,
-                id,
-                project.beschrijving,
-                project.Categorie,
-                project.GitHubUrl,
-                project.Datum
-            );
+      
 
 
-            _projects.Add(newproject);
 
 
-            return newproject;
+            return _project;
 
 
         }
@@ -91,10 +89,10 @@ namespace EersteWebNetApplicatie
 
 
 
-        public Project? updateProjectbyID(int id, ProjectRequestDTO project)
+        public async Task<Project?> updateProjectbyID(int id, ProjectRequestDTO project)
         {
 
-            Project? _project = _projects.FirstOrDefault(p => p.ID == id);
+            Project? _project = await context.Projects.FirstOrDefaultAsync(p => p.ID == id);
 
             if (_project == null) { return null; }
             else
@@ -105,6 +103,7 @@ namespace EersteWebNetApplicatie
                 _project.GitHubUrl = project.GitHubUrl;
                 _project.Datum = project.Datum;
 
+                await context.SaveChangesAsync();
                 return _project;
 
 

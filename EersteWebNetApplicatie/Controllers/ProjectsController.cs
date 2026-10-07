@@ -23,11 +23,11 @@ namespace EersteWebNetApplicatie.Controllers
 
 
         [HttpGet]
-        public List<Project> getProjecten() {
+        public async Task<List<Project>> getProjecten() {
 
 
 
-            return service.getProjecten();
+            return await service.getProjecten();
 
 
         }
@@ -36,10 +36,10 @@ namespace EersteWebNetApplicatie.Controllers
         
 
         [HttpGet("{id}")]
-        public ActionResult<Project> getProjectByID(int id) {
+        public async Task<ActionResult<Project>> getProjectByID(int id) {
 
 
-            Project? project = service.getProjectByID(id);
+            Project? project = await service.getProjectByID(id);
             if (project == null) {
                 return NotFound();
             }
@@ -51,10 +51,10 @@ namespace EersteWebNetApplicatie.Controllers
         }
 
         [HttpDelete("{id}")]
-        public ActionResult<List<Project>> deleteProjectByID(int id) {
+        public async Task<ActionResult<List<Project>>> deleteProjectByID(int id) {
 
 
-            List<Project>?   _projects = service.deleteProjectByID(id);
+            List<Project>? _projects = await service.deleteProjectByID(id);
 
             if (_projects == null) { return NotFound();  } else {
                 return _projects;
@@ -66,23 +66,23 @@ namespace EersteWebNetApplicatie.Controllers
 
         [HttpPost]
 
-        public ActionResult<Project> createnewProject(ProjectRequestDTO project)
+        public async Task<ActionResult<Project>> createnewProject(ProjectRequestDTO project)
 
         {
 
-            Project newproject = service.createnewProject(project);
+            Project newproject = await service.createnewProject(project);
 
             return CreatedAtAction(nameof(getProjectByID), new { id = newproject.ID } , newproject);
 
 
         }
-
+    
 
         [HttpPut("{id}")]
 
-        public ActionResult<Project> updateProjectbyID(int id, ProjectRequestDTO project) {
+        public async Task<ActionResult<Project>> updateProjectbyID(int id, ProjectRequestDTO project) {
 
-            Project? _project = service.updateProjectbyID(id, project);
+            Project? _project = await service.updateProjectbyID(id, project);
 
 
 
