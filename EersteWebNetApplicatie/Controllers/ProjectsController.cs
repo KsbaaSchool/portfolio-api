@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using EersteWebNetApplicatie.Models;
+using EersteWebNetApplicatie.Services;
+using Microsoft.AspNetCore.Mvc;
 using System.Security.Cryptography.X509Certificates;
 
 namespace EersteWebNetApplicatie.Controllers
@@ -23,23 +25,23 @@ namespace EersteWebNetApplicatie.Controllers
 
 
         [HttpGet]
-        public async Task<List<Project>> getProjecten() {
+        public async Task<List<ProjectResponseDTO>> getProjecten() {
 
 
 
             return await service.getProjecten();
 
 
-        }
+        }       
 
 
         
 
         [HttpGet("{id}")]
-        public async Task<ActionResult<Project>> getProjectByID(int id) {
+        public async Task<ActionResult<ProjectResponseDTO>> getProjectByID(int id) {
 
 
-            Project? project = await service.getProjectByID(id);
+            ProjectResponseDTO? project = await service.getProjectByID(id);
             if (project == null) {
                 return NotFound();
             }
@@ -51,10 +53,10 @@ namespace EersteWebNetApplicatie.Controllers
         }
 
         [HttpDelete("{id}")]
-        public async Task<ActionResult<List<Project>>> deleteProjectByID(int id) {
+        public async Task<ActionResult<List<ProjectResponseDTO>>> deleteProjectByID(int id) {
 
 
-            List<Project>? _projects = await service.deleteProjectByID(id);
+            List<ProjectResponseDTO>? _projects = await service.deleteProjectByID(id);
 
             if (_projects == null) { return NotFound();  } else {
                 return _projects;
@@ -66,11 +68,11 @@ namespace EersteWebNetApplicatie.Controllers
 
         [HttpPost]
 
-        public async Task<ActionResult<Project>> createnewProject(ProjectRequestDTO project)
+        public async Task<ActionResult<ProjectResponseDTO>> createnewProject(ProjectRequestDTO project)
 
         {
 
-            Project newproject = await service.createnewProject(project);
+            ProjectResponseDTO newproject = await service.createnewProject(project);
 
             return CreatedAtAction(nameof(getProjectByID), new { id = newproject.ID } , newproject);
 
@@ -80,9 +82,9 @@ namespace EersteWebNetApplicatie.Controllers
 
         [HttpPut("{id}")]
 
-        public async Task<ActionResult<Project>> updateProjectbyID(int id, ProjectRequestDTO project) {
+        public async Task<ActionResult<ProjectResponseDTO>> updateProjectbyID(int id, ProjectRequestDTO project) {
 
-            Project? _project = await service.updateProjectbyID(id, project);
+            ProjectResponseDTO? _project = await service.updateProjectbyID(id, project);
 
 
 

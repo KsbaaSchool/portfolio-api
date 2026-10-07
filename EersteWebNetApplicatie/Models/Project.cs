@@ -1,4 +1,4 @@
-﻿namespace EersteWebNetApplicatie
+﻿namespace EersteWebNetApplicatie.Models
 {
     public class Project
     {

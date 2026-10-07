@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using EersteWebNetApplicatie.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace EersteWebNetApplicatie
 {

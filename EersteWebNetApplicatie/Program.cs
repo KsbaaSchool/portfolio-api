@@ -1,4 +1,5 @@
 using EersteWebNetApplicatie;
+using EersteWebNetApplicatie.Services;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);

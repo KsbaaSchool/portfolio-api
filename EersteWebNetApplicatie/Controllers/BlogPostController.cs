@@ -1,4 +1,7 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using EersteWebNetApplicatie.DTO_s;
+using EersteWebNetApplicatie.Models;
+using EersteWebNetApplicatie.Services;
+using Microsoft.AspNetCore.Mvc;
 using System.Security.Cryptography.X509Certificates;
 
 namespace EersteWebNetApplicatie.Controllers
@@ -18,10 +21,10 @@ namespace EersteWebNetApplicatie.Controllers
 
 
         [HttpGet]
-        public List<Blogpost> getBlogposts()
+        public async Task<List<BlogPostResponseDTO>> getBlogposts()
         {
 
-            List<Blogpost> _blogposts = service.getBlogposts();
+            List<BlogPostResponseDTO> _blogposts = await service.getBlogposts();
 
             return _blogposts;
 
@@ -30,9 +33,9 @@ namespace EersteWebNetApplicatie.Controllers
 
         [HttpGet("{id}")]
 
-        public ActionResult<Blogpost> getBlogpostByID(int id) {
+        public async Task<ActionResult<BlogPostResponseDTO>> getBlogpostByID(int id) {
 
-            Blogpost? _blogpost = service.getBlogpostByID(id);
+            BlogPostResponseDTO? _blogpost = await service.getBlogpostByID(id);
 
             if (_blogpost == null) { return NotFound(); }
             else { return _blogpost; }
@@ -43,9 +46,9 @@ namespace EersteWebNetApplicatie.Controllers
 
 
         [HttpDelete("{id}")]
-        public ActionResult<List<Blogpost>> deleteById(int id) {
+        public async Task<ActionResult<List<BlogPostResponseDTO>>> deleteById(int id) {
 
-            List<Blogpost>? _blogposts = service.deleteById(id);
+            List<BlogPostResponseDTO>? _blogposts = await service.deleteById(id);
 
 
             if (_blogposts == null) { return NotFound(); } else { return _blogposts;  }
@@ -55,12 +58,12 @@ namespace EersteWebNetApplicatie.Controllers
 
         [HttpPost]
 
-        public ActionResult<Blogpost> createnewBlogpost(BlogPostRequestDTO blogpost) {
+        public async Task<ActionResult<BlogPostResponseDTO>> createnewBlogpost(BlogPostRequestDTO blogpost) {
 
 
 
 
-            Blogpost newBlogpost = service.createnewBlogpost(blogpost);
+            BlogPostResponseDTO newBlogpost = await service.createnewBlogpost(blogpost);
 
 
 
@@ -73,10 +76,10 @@ namespace EersteWebNetApplicatie.Controllers
 
         [HttpPut("{id}")]
 
-        public ActionResult<Blogpost> updateBlogpost(int id, BlogPostRequestDTO blogpost) {
+        public async Task<ActionResult<BlogPostResponseDTO>> updateBlogpost(int id, BlogPostRequestDTO blogpost) {
 
 
-            Blogpost? _blogpost = service.updateBlogpost(id, blogpost);
+            BlogPostResponseDTO? _blogpost = await service.updateBlogpost(id, blogpost);
 
 
 
