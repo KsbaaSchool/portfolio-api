@@ -1,8 +1,9 @@
-﻿using EersteWebNetApplicatie.DTO_s;
+﻿using EersteWebNetApplicatie.DTOs;
 using EersteWebNetApplicatie.Models;
 using EersteWebNetApplicatie.Services;
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Cryptography.X509Certificates;
+using Microsoft.AspNetCore.Authorization;
 
 namespace EersteWebNetApplicatie.Controllers
 {
@@ -40,7 +41,7 @@ namespace EersteWebNetApplicatie.Controllers
             if (_blogpost == null) { return NotFound(); }
             else { return _blogpost; }
 
-
+                
 
         }
 
@@ -56,6 +57,7 @@ namespace EersteWebNetApplicatie.Controllers
         }
 
 
+        [Authorize]
         [HttpPost]
 
         public async Task<ActionResult<BlogPostResponseDTO>> createnewBlogpost(BlogPostRequestDTO blogpost) {

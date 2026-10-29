@@ -1,8 +1,12 @@
 using EersteWebNetApplicatie;
 using EersteWebNetApplicatie.Services;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
-
 var builder = WebApplication.CreateBuilder(args);
+
+
+//op4 handiger om interface te gebruiken in plaats van direct in de controller en dat makkelijk los koppelen van service
+
 
 // Add services to the container.
 
@@ -14,6 +18,8 @@ builder.Services.AddScoped<ProjectService>();
 builder.Services.AddScoped<BlogpostService>();
 builder.Services.AddDbContext<PortfolioDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+builder.Services.AddIdentity<IdentityUser, IdentityRole>()
+    .AddEntityFrameworkStores<PortfolioDbContext>();
 
 var app = builder.Build();
 
@@ -28,10 +34,15 @@ if (app.Environment.IsDevelopment())
 
 
 
+
+
+
 app.UseHttpsRedirection();
 
-app.UseAuthorization();
 
+app.UseAuthentication();
+
+app.UseAuthorization();
 app.MapControllers();
 
 app.Run();

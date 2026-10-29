@@ -1,4 +1,4 @@
-﻿namespace EersteWebNetApplicatie
+﻿namespace EersteWebNetApplicatie.DTOs
 {
     public class ProjectRequestDTO
     {

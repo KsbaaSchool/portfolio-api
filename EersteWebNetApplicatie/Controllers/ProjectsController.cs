@@ -1,7 +1,10 @@
-﻿using EersteWebNetApplicatie.Models;
+﻿using EersteWebNetApplicatie.DTOs;
+using EersteWebNetApplicatie.Models;
 using EersteWebNetApplicatie.Services;
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Cryptography.X509Certificates;
+using Microsoft.AspNetCore.Authorization;
+
 
 namespace EersteWebNetApplicatie.Controllers
 {

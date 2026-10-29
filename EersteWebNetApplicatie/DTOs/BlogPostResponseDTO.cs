@@ -1,9 +1,8 @@
-﻿namespace EersteWebNetApplicatie
+﻿namespace EersteWebNetApplicatie.DTOs
 {
-    public class BlogPostRequestDTO
+    public class BlogPostResponseDTO
     {
-
-
+        public int ID { get; set; }
 
         public String titel { get; set; }
 
@@ -13,11 +12,16 @@
 
 
 
-        public BlogPostRequestDTO(String titel, String inhoud, DateTime publicatieDatum)
+        public BlogPostResponseDTO(int ID, String titel, String inhoud, DateTime publicatieDatum)
         {
+            this.ID = ID;
             this.titel = titel;
             this.inhoud = inhoud;
             this.publicatieDatum = publicatieDatum;
         }
+
+
+
+
     }
 }

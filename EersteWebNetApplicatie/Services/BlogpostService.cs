@@ -1,4 +1,4 @@
-﻿using EersteWebNetApplicatie.DTO_s;
+﻿using EersteWebNetApplicatie.DTOs;
 using EersteWebNetApplicatie.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;

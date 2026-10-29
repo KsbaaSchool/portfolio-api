@@ -54,7 +54,7 @@ flowchart TD
 | `Controllers` | pakt het HTTP request aan en stuurt de juiste statuscode terug (200, 201, 404). weet niks van de database |
 | `Services` | de logica. haalt data op via de DbContext en zet een model om naar een DTO. weet niks van HTTP |
 | `Models` | `Project` en `Blogpost`, dit zijn de tabellen in de database |
-| `DTO's` | wat de api binnenkrijgt (request) en terugstuurt (response) |
+| `DTOs` | wat de api binnenkrijgt (request) en terugstuurt (response) |
 | `PortfolioDbContext` | de verbinding met SQL Server via EF Core |
 | `Migrations` | de migratie die de database aanmaakt |
 
