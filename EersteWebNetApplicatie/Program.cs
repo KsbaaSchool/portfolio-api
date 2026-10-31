@@ -37,6 +37,11 @@ using (var scope = app.Services.CreateScope())
     }
 }
 
+
+
+app.UseHttpsRedirection();
+
+
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
@@ -51,7 +56,6 @@ if (app.Environment.IsDevelopment())
 
 
 
-app.UseHttpsRedirection();
 
 
 app.UseAuthentication();

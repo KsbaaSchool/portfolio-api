@@ -57,7 +57,7 @@ namespace EersteWebNetApplicatie.Controllers
         }
 
 
-        [Authorize]
+        [Authorize (Roles = "Admin,Editor")]
         [HttpPost]
 
         public async Task<ActionResult<BlogPostResponseDTO>> createnewBlogpost(BlogPostRequestDTO blogpost) {
