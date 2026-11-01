@@ -1,9 +1,9 @@
-﻿using EersteWebNetApplicatie.DTOs;
-using EersteWebNetApplicatie.Models;
+﻿using EersteWebNetApplicatie.Models;
 using EersteWebNetApplicatie.Services;
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Cryptography.X509Certificates;
 using Microsoft.AspNetCore.Authorization;
+using EersteWebNetApplicatie.DTOs;
 
 namespace EersteWebNetApplicatie.Controllers
 {
@@ -31,7 +31,7 @@ namespace EersteWebNetApplicatie.Controllers
 
         }
 
-
+       
         [HttpGet("{id}")]
 
         public async Task<ActionResult<BlogPostResponseDTO>> getBlogpostByID(int id) {
@@ -45,7 +45,7 @@ namespace EersteWebNetApplicatie.Controllers
 
         }
 
-
+        [Authorize(Roles = "Admin,Editor")]
         [HttpDelete("{id}")]
         public async Task<ActionResult<List<BlogPostResponseDTO>>> deleteById(int id) {
 
@@ -76,6 +76,7 @@ namespace EersteWebNetApplicatie.Controllers
         }
 
 
+        [Authorize (Roles = ("Admin, Editor"))]
         [HttpPut("{id}")]
 
         public async Task<ActionResult<BlogPostResponseDTO>> updateBlogpost(int id, BlogPostRequestDTO blogpost) {

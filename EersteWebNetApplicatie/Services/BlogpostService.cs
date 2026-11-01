@@ -78,7 +78,7 @@ namespace EersteWebNetApplicatie.Services
 
 
 
-            Blogpost newBlogpost = new Blogpost(0, blogpost.titel, blogpost.inhoud, blogpost.publicatieDatum);
+            Blogpost newBlogpost = new Blogpost(0, blogpost.titel, blogpost.inhoud, blogpost.publicatieDatum.Value);
 
 
             _blogposts.Add(newBlogpost);
@@ -107,7 +107,7 @@ namespace EersteWebNetApplicatie.Services
 
                 _blogpost.titel = blogpost.titel;
                 _blogpost.inhoud = blogpost.inhoud;
-                _blogpost.publicatieDatum = blogpost.publicatieDatum;
+                _blogpost.publicatieDatum = blogpost.publicatieDatum.Value;
 
                 await context.SaveChangesAsync();
 

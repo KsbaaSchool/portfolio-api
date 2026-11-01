@@ -81,7 +81,7 @@ namespace EersteWebNetApplicatie.Services
 
 
             Project _project = new Project(project.titel, 0, project.beschrijving,
-                                            project.Categorie, project.GitHubUrl, project.Datum);
+                                            project.Categorie, project.GitHubUrl, project.Datum.Value);
 
             context.Projects.Add(_project);
 
@@ -90,7 +90,7 @@ namespace EersteWebNetApplicatie.Services
            await context.SaveChangesAsync();
 
             ProjectResponseDTO projectResponse = new ProjectResponseDTO(project.titel, _project.ID, project.beschrijving,
-                                          project.Categorie, project.GitHubUrl, project.Datum);
+                                          project.Categorie, project.GitHubUrl, project.Datum.Value);
 
             return projectResponse;
 
@@ -111,7 +111,7 @@ namespace EersteWebNetApplicatie.Services
                 _project.beschrijving = project.beschrijving;
                 _project.Categorie = project.Categorie;
                 _project.GitHubUrl = project.GitHubUrl;
-                _project.Datum = project.Datum;
+                _project.Datum = project.Datum.Value;
 
                 await context.SaveChangesAsync();
 

@@ -1,81 +1,129 @@
 # portfolio api
 
-> uitsluitend deze readme is opgesteld met behulp van Claude. de code heb ik zelf geschreven.
+> deze api heb ik zelf gebouwd. claude heeft me geholpen met uitleg en voorbeelden en met het duidelijker maken van deze readme.
 
-de backend van mijn portfoliosite. een ASP.NET Core Web API (.NET 10) met controllers, EF Core en SQL Server. je kan projecten en blogposts aanmaken, ophalen, wijzigen en verwijderen.
+de backend van mijn portfoliosite, gemaakt met ASP.NET Core (.NET 10), EF Core, Identity en SQL Server. iedereen kan projecten en blogposts bekijken. alleen een Editor of Admin kan ze aanmaken, wijzigen en verwijderen.
+
+## wat je nodig hebt
+
+- .NET 10 SDK
+- SQL Server op localhost
+- de tool voor migraties, die installeer je een keer met:
+
+```bash
+dotnet tool install --global dotnet-ef
+```
+
+de packages haalt `dotnet run` zelf op. de connection string staat in `appsettings.json`, daar staat geen wachtwoord in omdat je inlogt met je windows account.
 
 ## starten
 
-je hebt .NET 10 en een SQL Server op localhost nodig. de connection string staat in `appsettings.json`.
+let op dat je in de goede map zit. je moet twee keer de projectnaam zien, dus `EersteWebNetApplicatie\EersteWebNetApplicatie`. zie je hem maar een keer, doe dan eerst:
 
 ```bash
 cd EersteWebNetApplicatie
+```
+
+dan de database maken of bijwerken:
+
+```bash
 dotnet ef database update
+```
+
+en de api starten:
+
+```bash
 dotnet run
 ```
 
-daarna staat swagger op http://localhost:5029/swagger
+swagger staat daarna op http://localhost:5029/swagger. start je met het https profiel in visual studio, dan is het https://localhost:7241/swagger.
 
-## database
+## migraties
 
-ik gebruik een migratie en geen EnsureCreated. de migratie staat in de map `Migrations` (`EersteMigratie`) en met `dotnet ef database update` wordt de database `PortfolioDb` aangemaakt met de tabellen `Projects` en `Blogposts`.
+een migratie is een script dat de tabellen in je database maakt of aanpast. de scripts staan in de map `Migrations`. `dotnet ef database update` voert alle scripts uit die nog niet zijn uitgevoerd, dat noem je een migratie toepassen. op een nieuwe pc maakt dit de hele database `PortfolioDb` aan, dus ook de Identity tabellen zoals `AspNetUsers` en `AspNetRoles`.
 
-ik heb voor een migratie gekozen omdat ik dan later een veld kan toevoegen zonder dat ik de hele database weg moet gooien. met EnsureCreated kan dat niet.
+verander je een model, dan maak je eerst een nieuwe migratie en voer je die daarna uit:
+
+```bash
+dotnet ef migrations add NaamVanDeWijziging
+```
+
+```bash
+dotnet ef database update
+```
+
+ik gebruik migraties en geen EnsureCreated, omdat ik dan later een veld kan toevoegen zonder de hele database weg te gooien.
+
+## gebruikers en rollen
+
+de rollen Gast, Editor en Admin worden bij het opstarten aangemaakt als ze nog niet bestaan.
+
+een gewone gebruiker maak je met `POST /Account/register`, die krijgt altijd de rol Gast. via de api kan je jezelf dus geen Editor of Admin maken.
+
+wil je iemand Editor of Admin maken, doe dit dan in SQL Server. verander de email en de rol:
+
+```sql
+USE PortfolioDb;
+
+INSERT INTO AspNetUserRoles (UserId, RoleId)
+SELECT u.Id, r.Id
+FROM AspNetUsers u, AspNetRoles r
+WHERE u.UserName = 'user@example.com' AND r.Name = 'Editor';
+```
+
+weet je de email niet meer, dan zoek je op een stukje ervan. zo hoef je niet door alle users heen te kijken:
+
+```sql
+SELECT Id, UserName FROM AspNetUsers WHERE UserName LIKE '%stukje%';
+```
+
+de namen van de rollen zie je met:
+
+```sql
+SELECT Name FROM AspNetRoles;
+```
+
+log daarna opnieuw in, want je rollen staan in je cookie en die verandert niet vanzelf.
 
 ## endpoints
 
-| methode | route | wat |
+| methode | route | wie mag dit |
 | --- | --- | --- |
-| GET | `/Projects` | alle projecten |
-| GET | `/Projects/{id}` | een project |
-| POST | `/Projects` | project aanmaken |
-| PUT | `/Projects/{id}` | project wijzigen |
-| DELETE | `/Projects/{id}` | project verwijderen |
-| GET | `/BlogPost` | alle blogposts |
-| GET | `/BlogPost/{id}` | een blogpost |
-| POST | `/BlogPost` | blogpost aanmaken |
-| PUT | `/BlogPost/{id}` | blogpost wijzigen |
-| DELETE | `/BlogPost/{id}` | blogpost verwijderen |
+| POST | `/Account/register` | iedereen |
+| POST | `/Account/login` | iedereen |
+| GET | `/Projects` | iedereen |
+| GET | `/Projects/{id}` | iedereen |
+| POST | `/Projects` | Editor of Admin |
+| PUT | `/Projects/{id}` | Editor of Admin |
+| DELETE | `/Projects/{id}` | Editor of Admin |
+| GET | `/BlogPost` | iedereen |
+| GET | `/BlogPost/{id}` | iedereen |
+| POST | `/BlogPost` | Editor of Admin |
+| PUT | `/BlogPost/{id}` | Editor of Admin |
+| DELETE | `/BlogPost/{id}` | Editor of Admin |
 
-## lagen
+niet ingelogd geeft 401. wel ingelogd maar zonder de goede rol geeft 403.
 
-```mermaid
-flowchart TD
-    A[Swagger UI of de portfoliosite] -->|HTTP request met RequestDTO| B[Controllers]
-    B -->|roept aan| C[Services]
-    C -->|EF Core| D[PortfolioDbContext]
-    D --> E[(SQL Server PortfolioDb)]
-    C -.->|ResponseDTO| B
-    B -.->|JSON| A
-```
+## hoe het in elkaar zit
 
-| map | wat doet het |
+een request gaat zo door de api: controller → service → `PortfolioDbContext` → SQL Server.
+
+| onderdeel | wat doet het |
 | --- | --- |
-| `Controllers` | pakt het HTTP request aan en stuurt de juiste statuscode terug (200, 201, 404). weet niks van de database |
-| `Services` | de logica. haalt data op via de DbContext en zet een model om naar een DTO. weet niks van HTTP |
-| `Models` | `Project` en `Blogpost`, dit zijn de tabellen in de database |
-| `DTOs` | wat de api binnenkrijgt (request) en terugstuurt (response) |
-| `PortfolioDbContext` | de verbinding met SQL Server via EF Core |
-| `Migrations` | de migratie die de database aanmaakt |
+| `Controllers` | de routes en statuscodes. `AccountController` doet registreren en inloggen |
+| `Services` | de logica en de database. weet niks van HTTP |
+| `Models` | `Project` en `Blogpost`, mijn tabellen |
+| `DTOs` | wat de api binnenkrijgt en terugstuurt |
+| `PortfolioDbContext` | de verbinding met de database, ook voor de Identity tabellen |
 
-## onderbouwing
+## mijn keuzes
 
-**waarom controllers en geen Minimal API**
+**controllers en geen Minimal API:** daar zijn we in les 5 mee begonnen en zo begrijp ik het het beste. alles van projecten staat bij elkaar in `ProjectsController` en alles van blogposts in `BlogPostController`.
 
-ik heb voor controllers gekozen omdat we daar in les 5 mee begonnen zijn en ik het dan het beste begrijp. elke controller is een eigen class met alle routes van een onderdeel bij elkaar, dus alles van projecten staat in `ProjectsController` en alles van blogposts in `BlogPostController`. dat vind ik overzichtelijk.
+**lagen:** gaat er iets mis met een statuscode dan kijk ik in de controller, gaat er iets mis met de data dan kijk ik in de service. voor twee onderdelen is dit genoeg.
 
-bij Minimal API maak je geen controller classes. je zet de routes direct in `Program.cs` met `app.MapGet`, `app.MapPost` enzovoort en je krijgt de service binnen als parameter in plaats van via de constructor. dat is minder code en sneller opgezet, maar met 10 endpoints wordt `Program.cs` snel vol als je het niet zelf goed groepeert. voor een kleine api is het prima, ik vond controllers alleen duidelijker om mee te leren.
+**DTO's:** de api stuurt nooit direct een model terug. voeg ik later een veld toe dat niemand mag zien, dan gaat dat zo niet per ongeluk mee naar buiten. de request heeft geen ID omdat de database die maakt, de response wel.
 
-**waarom lagen**
+**dependency injection:** de services en de DbContext staan in `Program.cs`. ik krijg ze via de constructor en maak ze nergens zelf aan met `new`.
 
-de controller doet alleen HTTP en de service doet alleen de logica en de database. als ik iets aan de database verander hoef ik de controller niet aan te passen en andersom. het is ook makkelijker zoeken: gaat er iets mis met een statuscode dan kijk ik in de controller, gaat er iets mis met de data dan kijk ik in de service.
-
-voor een portfoliosite met twee onderdelen is dit genoeg. verticale features zou ik pas doen als het project veel groter wordt.
-
-**waarom DTO's**
-
-de api stuurt nooit een `Project` of `Blogpost` direct terug. die classes zijn mijn tabellen. als ik daar later een veld aan toevoeg dat niemand mag zien, zou dat anders automatisch mee naar buiten gaan. met een DTO kies ik zelf wat erin en eruit gaat. de request DTO heeft geen ID omdat de database die zelf maakt, de response DTO heeft die wel.
-
-**dependency injection**
-
-de DbContext en de twee services staan geregistreerd in `Program.cs`. de controller krijgt de service via de constructor en de service krijgt de DbContext via de constructor. ik maak nergens zelf een DbContext aan met `new`.
+**cookies:** na het inloggen krijg je een cookie en die stuurt de browser daarna zelf mee. zo weet de api bij elk request wie je bent. wachtwoorden worden door Identity gehasht opgeslagen.

@@ -1,9 +1,10 @@
-﻿using EersteWebNetApplicatie.DTOs;
-using EersteWebNetApplicatie.Models;
+﻿using EersteWebNetApplicatie.Models;
 using EersteWebNetApplicatie.Services;
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Cryptography.X509Certificates;
 using Microsoft.AspNetCore.Authorization;
+using EersteWebNetApplicatie.DTOs;
+using System.ComponentModel.DataAnnotations;
 
 
 namespace EersteWebNetApplicatie.Controllers
@@ -54,7 +55,9 @@ namespace EersteWebNetApplicatie.Controllers
             }
 
         }
-
+        
+        
+        [Authorize(Roles = "Admin,Editor")]
         [HttpDelete("{id}")]
         public async Task<ActionResult<List<ProjectResponseDTO>>> deleteProjectByID(int id) {
 
@@ -69,6 +72,8 @@ namespace EersteWebNetApplicatie.Controllers
 
 
 
+        
+        [Authorize(Roles = "Admin,Editor")]
         [HttpPost]
 
         public async Task<ActionResult<ProjectResponseDTO>> createnewProject(ProjectRequestDTO project)
@@ -81,8 +86,9 @@ namespace EersteWebNetApplicatie.Controllers
 
 
         }
-    
 
+        
+        [Authorize(Roles = "Admin,Editor")]
         [HttpPut("{id}")]
 
         public async Task<ActionResult<ProjectResponseDTO>> updateProjectbyID(int id, ProjectRequestDTO project) {
