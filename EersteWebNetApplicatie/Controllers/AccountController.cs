@@ -22,18 +22,18 @@ namespace EersteWebNetApplicatie.Controllers
 
         readonly SignInManager<IdentityUser> signinmangaer;
 
-        public AccountController(UserManager<IdentityUser> UserManager, SignInManager<IdentityUser> Signinmanager)
+        public AccountController(UserManager<IdentityUser> userManager, SignInManager<IdentityUser> signInManager)
         {
 
-            this.userManager = UserManager;
-            this.signinmangaer = Signinmanager;
+            this.userManager = userManager;
+            this.signinmangaer = signInManager;
 
 
         }
 
 
             [HttpPost("register")]
-        public async Task<ActionResult> register(RegisterDTO dto)
+        public async Task<ActionResult> Register(RegisterDTO dto)
         {
 
             IdentityUser user = new IdentityUser { UserName = dto.email, Email = dto.email };
@@ -56,7 +56,7 @@ namespace EersteWebNetApplicatie.Controllers
 
 
         [HttpPost("login")]
-        public async Task<ActionResult> login(LoginDTO dto) {
+        public async Task<ActionResult> Login(LoginDTO dto) {
 
 
             IdentityUser? user = await userManager.FindByEmailAsync(dto.email);

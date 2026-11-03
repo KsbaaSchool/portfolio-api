@@ -29,11 +29,11 @@ namespace EersteWebNetApplicatie.Controllers
 
 
         [HttpGet]
-        public async Task<List<ProjectResponseDTO>> getProjecten() {
+        public async Task<List<ProjectResponseDTO>> GetProjecten() {
 
 
 
-            return await service.getProjecten();
+            return await service.GetProjecten();
 
 
         }       
@@ -42,10 +42,10 @@ namespace EersteWebNetApplicatie.Controllers
         
 
         [HttpGet("{id}")]
-        public async Task<ActionResult<ProjectResponseDTO>> getProjectByID(int id) {
+        public async Task<ActionResult<ProjectResponseDTO>> GetProjectById(int id) {
 
 
-            ProjectResponseDTO? project = await service.getProjectByID(id);
+            ProjectResponseDTO? project = await service.GetProjectById(id);
             if (project == null) {
                 return NotFound();
             }
@@ -59,10 +59,10 @@ namespace EersteWebNetApplicatie.Controllers
         
         [Authorize(Roles = "Admin,Editor")]
         [HttpDelete("{id}")]
-        public async Task<ActionResult<List<ProjectResponseDTO>>> deleteProjectByID(int id) {
+        public async Task<ActionResult<List<ProjectResponseDTO>>> DeleteProjectById(int id) {
 
 
-            List<ProjectResponseDTO>? _projects = await service.deleteProjectByID(id);
+            List<ProjectResponseDTO>? _projects = await service.DeleteProjectById(id);
 
             if (_projects == null) { return NotFound();  } else {
                 return _projects;
@@ -76,13 +76,13 @@ namespace EersteWebNetApplicatie.Controllers
         [Authorize(Roles = "Admin,Editor")]
         [HttpPost]
 
-        public async Task<ActionResult<ProjectResponseDTO>> createnewProject(ProjectRequestDTO project)
+        public async Task<ActionResult<ProjectResponseDTO>> CreateNewProject(ProjectRequestDTO project)
 
         {
 
-            ProjectResponseDTO newproject = await service.createnewProject(project);
+            ProjectResponseDTO newproject = await service.CreateNewProject(project);
 
-            return CreatedAtAction(nameof(getProjectByID), new { id = newproject.ID } , newproject);
+            return CreatedAtAction(nameof(GetProjectById), new { id = newproject.ID } , newproject);
 
 
         }
@@ -91,9 +91,9 @@ namespace EersteWebNetApplicatie.Controllers
         [Authorize(Roles = "Admin,Editor")]
         [HttpPut("{id}")]
 
-        public async Task<ActionResult<ProjectResponseDTO>> updateProjectbyID(int id, ProjectRequestDTO project) {
+        public async Task<ActionResult<ProjectResponseDTO>> UpdateProjectById(int id, ProjectRequestDTO project) {
 
-            ProjectResponseDTO? _project = await service.updateProjectbyID(id, project);
+            ProjectResponseDTO? _project = await service.UpdateProjectById(id, project);
 
 
 

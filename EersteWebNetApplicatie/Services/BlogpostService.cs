@@ -20,7 +20,7 @@ namespace EersteWebNetApplicatie.Services
 
 
 
-        public async Task<List<BlogPostResponseDTO>> getBlogposts()
+        public async Task<List<BlogPostResponseDTO>> GetBlogposts()
         {
 
             
@@ -29,7 +29,7 @@ namespace EersteWebNetApplicatie.Services
         }
 
 
-        public async Task<BlogPostResponseDTO?> getBlogpostByID(int id)
+        public async Task<BlogPostResponseDTO?> GetBlogpostById(int id)
         {
 
             Blogpost? _blogpost = await context.Blogposts.FirstOrDefaultAsync(blogpost => id == blogpost.ID);
@@ -48,7 +48,7 @@ namespace EersteWebNetApplicatie.Services
         }
 
 
-        public async Task<List<BlogPostResponseDTO>?> deleteById(int id)
+        public async Task<List<BlogPostResponseDTO>?> DeleteById(int id)
         {
 
             DbSet<Blogpost> _blogposts = context.Blogposts;
@@ -70,7 +70,7 @@ namespace EersteWebNetApplicatie.Services
         }
 
 
-        public async Task<BlogPostResponseDTO> createnewBlogpost(BlogPostRequestDTO blogpost)
+        public async Task<BlogPostResponseDTO> CreateNewBlogpost(BlogPostRequestDTO blogpost)
         {
 
 
@@ -93,7 +93,7 @@ namespace EersteWebNetApplicatie.Services
 
         }
 
-        public async Task<BlogPostResponseDTO?> updateBlogpost(int id, BlogPostRequestDTO blogpost)
+        public async Task<BlogPostResponseDTO?> UpdateBlogpost(int id, BlogPostRequestDTO blogpost)
         {
 
             Blogpost? _blogpost = await context.Blogposts.FirstOrDefaultAsync(bg => bg.ID == id);

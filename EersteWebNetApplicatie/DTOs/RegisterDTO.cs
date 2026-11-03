@@ -6,6 +6,7 @@ namespace EersteWebNetApplicatie.DTOs
     {
 
 
+
         [Required]
         [EmailAddress]
         public String email { get; set; } = "";
@@ -13,6 +14,12 @@ namespace EersteWebNetApplicatie.DTOs
         [Required]
         public String wachtwoord { get; set; } = "";
 
+
+
+
     }
+
+
+ 
 }
 

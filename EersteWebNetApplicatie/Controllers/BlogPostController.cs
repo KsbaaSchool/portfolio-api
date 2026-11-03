@@ -22,10 +22,10 @@ namespace EersteWebNetApplicatie.Controllers
 
 
         [HttpGet]
-        public async Task<List<BlogPostResponseDTO>> getBlogposts()
+        public async Task<List<BlogPostResponseDTO>> GetBlogposts()
         {
 
-            List<BlogPostResponseDTO> _blogposts = await service.getBlogposts();
+            List<BlogPostResponseDTO> _blogposts = await service.GetBlogposts();
 
             return _blogposts;
 
@@ -34,9 +34,9 @@ namespace EersteWebNetApplicatie.Controllers
        
         [HttpGet("{id}")]
 
-        public async Task<ActionResult<BlogPostResponseDTO>> getBlogpostByID(int id) {
+        public async Task<ActionResult<BlogPostResponseDTO>> GetBlogpostById(int id) {
 
-            BlogPostResponseDTO? _blogpost = await service.getBlogpostByID(id);
+            BlogPostResponseDTO? _blogpost = await service.GetBlogpostById(id);
 
             if (_blogpost == null) { return NotFound(); }
             else { return _blogpost; }
@@ -47,9 +47,9 @@ namespace EersteWebNetApplicatie.Controllers
 
         [Authorize(Roles = "Admin,Editor")]
         [HttpDelete("{id}")]
-        public async Task<ActionResult<List<BlogPostResponseDTO>>> deleteById(int id) {
+        public async Task<ActionResult<List<BlogPostResponseDTO>>> DeleteById(int id) {
 
-            List<BlogPostResponseDTO>? _blogposts = await service.deleteById(id);
+            List<BlogPostResponseDTO>? _blogposts = await service.DeleteById(id);
 
 
             if (_blogposts == null) { return NotFound(); } else { return _blogposts;  }
@@ -60,18 +60,18 @@ namespace EersteWebNetApplicatie.Controllers
         [Authorize (Roles = "Admin,Editor")]
         [HttpPost]
 
-        public async Task<ActionResult<BlogPostResponseDTO>> createnewBlogpost(BlogPostRequestDTO blogpost) {
+        public async Task<ActionResult<BlogPostResponseDTO>> CreateNewBlogpost(BlogPostRequestDTO blogpost) {
 
 
 
 
-            BlogPostResponseDTO newBlogpost = await service.createnewBlogpost(blogpost);
+            BlogPostResponseDTO newBlogpost = await service.CreateNewBlogpost(blogpost);
 
 
 
           
 
-            return CreatedAtAction(nameof(getBlogpostByID), new {id = newBlogpost.ID } , newBlogpost);
+            return CreatedAtAction(nameof(GetBlogpostById), new {id = newBlogpost.ID } , newBlogpost);
         
         }
 
@@ -79,10 +79,10 @@ namespace EersteWebNetApplicatie.Controllers
         [Authorize (Roles = ("Admin, Editor"))]
         [HttpPut("{id}")]
 
-        public async Task<ActionResult<BlogPostResponseDTO>> updateBlogpost(int id, BlogPostRequestDTO blogpost) {
+        public async Task<ActionResult<BlogPostResponseDTO>> UpdateBlogpost(int id, BlogPostRequestDTO blogpost) {
 
 
-            BlogPostResponseDTO? _blogpost = await service.updateBlogpost(id, blogpost);
+            BlogPostResponseDTO? _blogpost = await service.UpdateBlogpost(id, blogpost);
 
 
 

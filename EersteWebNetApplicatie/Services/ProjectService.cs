@@ -21,7 +21,7 @@ namespace EersteWebNetApplicatie.Services
 
 
 
-        public async Task<List<ProjectResponseDTO>> getProjecten()
+        public async Task<List<ProjectResponseDTO>> GetProjecten()
         {
 
 
@@ -35,7 +35,7 @@ namespace EersteWebNetApplicatie.Services
 
 
 
-        public async Task<ProjectResponseDTO?> getProjectByID(int id)
+        public async Task<ProjectResponseDTO?> GetProjectById(int id)
             {
 
             Project? project = await context.Projects.FirstOrDefaultAsync(p => p.ID == id);
@@ -52,7 +52,7 @@ namespace EersteWebNetApplicatie.Services
 
         }
 
-        public async Task<List<ProjectResponseDTO>?> deleteProjectByID(int id)
+        public async Task<List<ProjectResponseDTO>?> DeleteProjectById(int id)
         {
 
             Project? _project = await context.Projects.FirstOrDefaultAsync(project => id == project.ID);
@@ -75,7 +75,7 @@ namespace EersteWebNetApplicatie.Services
 
 
 
-        public async Task<ProjectResponseDTO> createnewProject(ProjectRequestDTO project)
+        public async Task<ProjectResponseDTO> CreateNewProject(ProjectRequestDTO project)
 
         {
 
@@ -99,7 +99,7 @@ namespace EersteWebNetApplicatie.Services
 
 
 
-        public async Task<ProjectResponseDTO?> updateProjectbyID(int id, ProjectRequestDTO project)
+        public async Task<ProjectResponseDTO?> UpdateProjectById(int id, ProjectRequestDTO project)
         {
 
             Project? _project = await context.Projects.FirstOrDefaultAsync(p => p.ID == id);
