@@ -299,18 +299,12 @@ var assemblies = [
       { "name": "EersteWebNetApplicatie.DTOs.ProjectRequestDTO", "rp": "EersteWebNetApplicatie_ProjectRequestDTO.html", "cl": 5, "ucl": 0, "cal": 5, "tl": 29, "cb": 0, "tb": 0, "cm": 0, "fcm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "mfch": [], "hc": [], "metrics": { } },
       { "name": "EersteWebNetApplicatie.DTOs.ProjectResponseDTO", "rp": "EersteWebNetApplicatie_ProjectResponseDTO.html", "cl": 15, "ucl": 0, "cal": 15, "tl": 31, "cb": 0, "tb": 0, "cm": 0, "fcm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "mfch": [], "hc": [], "metrics": { } },
       { "name": "EersteWebNetApplicatie.DTOs.RegisterDTO", "rp": "EersteWebNetApplicatie_RegisterDTO.html", "cl": 2, "ucl": 0, "cal": 2, "tl": 25, "cb": 0, "tb": 0, "cm": 0, "fcm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "mfch": [], "hc": [], "metrics": { } },
-      { "name": "EersteWebNetApplicatie.Migrations.EersteMigratie", "rp": "EersteWebNetApplicatie_EersteMigratie.html", "cl": 0, "ucl": 98, "cal": 98, "tl": 143, "cb": 0, "tb": 0, "cm": 0, "fcm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "mfch": [], "hc": [], "metrics": { } },
-      { "name": "EersteWebNetApplicatie.Migrations.IdentityToegevoegd", "rp": "EersteWebNetApplicatie_IdentityToegevoegd.html", "cl": 0, "ucl": 485, "cal": 485, "tl": 559, "cb": 0, "tb": 0, "cm": 0, "fcm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "mfch": [], "hc": [], "metrics": { } },
-      { "name": "EersteWebNetApplicatie.Migrations.PortfolioDbContextModelSnapshot", "rp": "EersteWebNetApplicatie_PortfolioDbContextModelSnapshot.html", "cl": 0, "ucl": 297, "cal": 297, "tl": 332, "cb": 0, "tb": 0, "cm": 0, "fcm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "mfch": [], "hc": [], "metrics": { } },
-      { "name": "EersteWebNetApplicatie.Migrations.RollenToegevoegd", "rp": "EersteWebNetApplicatie_RollenToegevoegd.html", "cl": 0, "ucl": 301, "cal": 301, "tl": 357, "cb": 0, "tb": 0, "cm": 0, "fcm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "mfch": [], "hc": [], "metrics": { } },
       { "name": "EersteWebNetApplicatie.Models.Blogpost", "rp": "EersteWebNetApplicatie_Blogpost.html", "cl": 11, "ucl": 0, "cal": 11, "tl": 28, "cb": 0, "tb": 0, "cm": 0, "fcm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "mfch": [], "hc": [], "metrics": { } },
       { "name": "EersteWebNetApplicatie.Models.Project", "rp": "EersteWebNetApplicatie_Project.html", "cl": 15, "ucl": 0, "cal": 15, "tl": 31, "cb": 0, "tb": 0, "cm": 0, "fcm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "mfch": [], "hc": [], "metrics": { } },
       { "name": "EersteWebNetApplicatie.PortfolioDbContext", "rp": "EersteWebNetApplicatie_PortfolioDbContext.html", "cl": 3, "ucl": 0, "cal": 3, "tl": 21, "cb": 0, "tb": 0, "cm": 0, "fcm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "mfch": [], "hc": [], "metrics": { } },
-      { "name": "EersteWebNetApplicatie.Services.BlogpostService", "rp": "EersteWebNetApplicatie_BlogpostService.html", "cl": 43, "ucl": 0, "cal": 43, "tl": 131, "cb": 6, "tb": 6, "cm": 0, "fcm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "mfch": [], "hc": [], "metrics": { } },
+      { "name": "EersteWebNetApplicatie.Services.BlogpostService", "rp": "EersteWebNetApplicatie_BlogpostService.html", "cl": 43, "ucl": 0, "cal": 43, "tl": 132, "cb": 6, "tb": 6, "cm": 0, "fcm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "mfch": [], "hc": [], "metrics": { } },
       { "name": "EersteWebNetApplicatie.Services.ProjectService", "rp": "EersteWebNetApplicatie_ProjectService.html", "cl": 42, "ucl": 0, "cal": 42, "tl": 141, "cb": 6, "tb": 6, "cm": 0, "fcm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "mfch": [], "hc": [], "metrics": { } },
-      { "name": "Microsoft.AspNetCore.OpenApi.Generated", "rp": "EersteWebNetApplicatie_Generated.html", "cl": 4, "ucl": 377, "cal": 381, "tl": 606, "cb": 0, "tb": 206, "cm": 0, "fcm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "mfch": [], "hc": [], "metrics": { } },
       { "name": "Program", "rp": "EersteWebNetApplicatie_Program.html", "cl": 26, "ucl": 7, "cal": 33, "tl": 66, "cb": 4, "tb": 6, "cm": 0, "fcm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "mfch": [], "hc": [], "metrics": { } },
-      { "name": "System.Runtime.CompilerServices", "rp": "EersteWebNetApplicatie_CompilerServices.html", "cl": 0, "ucl": 3, "cal": 3, "tl": 23, "cb": 0, "tb": 0, "cm": 0, "fcm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "mfch": [], "hc": [], "metrics": { } },
     ]},
 ];
 
@@ -319,53 +313,9 @@ var metrics = [{ "name": "Crap Score", "abbreviation": "crp", "explanationUrl": 
 var historicCoverageExecutionTimes = [];
 
 var riskHotspotMetrics = [
-      { "name": "Crap Score", "explanationUrl": "https://googletesting.blogspot.de/2011/02/this-code-is-crap.html" },
-      { "name": "Cyclomatic complexity", "explanationUrl": "https://en.wikipedia.org/wiki/Cyclomatic_complexity" },
 ];
 
 var riskHotspots = [
-  {
-    "assembly": "EersteWebNetApplicatie", "class": "Microsoft.AspNetCore.OpenApi.Generated", "reportPath": "EersteWebNetApplicatie_Generated.html", "methodName": "TransformAsync(Microsoft.OpenApi.OpenApiOperation,Microsoft.AspNetCore.OpenApi.OpenApiOperationTransformerContext,System.Threading.CancellationToken)", "methodShortName": "TransformAsync(...)", "fileIndex": 0, "line": 345,
-    "metrics": [
-      { "value": 8930, "exceeded": true },
-      { "value": 94, "exceeded": true },
-    ]},
-  {
-    "assembly": "EersteWebNetApplicatie", "class": "Microsoft.AspNetCore.OpenApi.Generated", "reportPath": "EersteWebNetApplicatie_Generated.html", "methodName": "TransformAsync(Microsoft.OpenApi.OpenApiSchema,Microsoft.AspNetCore.OpenApi.OpenApiSchemaTransformerContext,System.Threading.CancellationToken)", "methodShortName": "TransformAsync(...)", "fileIndex": 0, "line": 511,
-    "metrics": [
-      { "value": 1190, "exceeded": true },
-      { "value": 34, "exceeded": true },
-    ]},
-  {
-    "assembly": "EersteWebNetApplicatie", "class": "Microsoft.AspNetCore.OpenApi.Generated", "reportPath": "EersteWebNetApplicatie_Generated.html", "methodName": "GetTypeDocId(System.Type,System.Boolean,System.Boolean)", "methodShortName": "GetTypeDocId(...)", "fileIndex": 0, "line": 238,
-    "metrics": [
-      { "value": 812, "exceeded": true },
-      { "value": 28, "exceeded": true },
-    ]},
-  {
-    "assembly": "EersteWebNetApplicatie", "class": "Microsoft.AspNetCore.OpenApi.Generated", "reportPath": "EersteWebNetApplicatie_Generated.html", "methodName": "CreateDocumentationId(System.Reflection.MethodInfo)", "methodShortName": "CreateDocumentationId(...)", "fileIndex": 0, "line": 168,
-    "metrics": [
-      { "value": 342, "exceeded": true },
-      { "value": 18, "exceeded": true },
-    ]},
-  {
-    "assembly": "EersteWebNetApplicatie", "class": "Microsoft.AspNetCore.OpenApi.Generated", "reportPath": "EersteWebNetApplicatie_Generated.html", "methodName": "CreateDocumentationId(System.Reflection.PropertyInfo)", "methodShortName": "CreateDocumentationId(...)", "fileIndex": 0, "line": 100,
-    "metrics": [
-      { "value": 110, "exceeded": true },
-      { "value": 10, "exceeded": false },
-    ]},
-  {
-    "assembly": "EersteWebNetApplicatie", "class": "Microsoft.AspNetCore.OpenApi.Generated", "reportPath": "EersteWebNetApplicatie_Generated.html", "methodName": "NormalizeDocId(System.String)", "methodShortName": "NormalizeDocId(...)", "fileIndex": 0, "line": 320,
-    "metrics": [
-      { "value": 42, "exceeded": true },
-      { "value": 6, "exceeded": false },
-    ]},
-  {
-    "assembly": "EersteWebNetApplicatie", "class": "Microsoft.AspNetCore.OpenApi.Generated", "reportPath": "EersteWebNetApplicatie_Generated.html", "methodName": "UnwrapOpenApiParameter(Microsoft.OpenApi.IOpenApiParameter)", "methodShortName": "UnwrapOpenApiParameter(...)", "fileIndex": 0, "line": 484,
-    "metrics": [
-      { "value": 42, "exceeded": true },
-      { "value": 6, "exceeded": false },
-    ]},
 ];
 
 var branchCoverageAvailable = true;
